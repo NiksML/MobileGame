@@ -8,12 +8,21 @@ using Photon.Realtime;
 public class PlayerList : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Text playerName;
+    public static PlayerList instance;
+    public static int  countPlayers;
     private Player _player;
 
+    private void Start()
+    {
+        instance = this;
+        countPlayers = 0;
+    }
     public void SetUp(Player player)
     {
         _player = player;
         playerName.text = player.NickName;
+        countPlayers++;
+        print(countPlayers);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

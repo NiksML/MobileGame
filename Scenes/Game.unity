@@ -385,6 +385,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
   m_PrefabInstance: {fileID: 349240756}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &349240758 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
+  m_PrefabInstance: {fileID: 349240756}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &694401965
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,19 +681,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1154392435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8701821108289803913, guid: bba001cabe634d24f9285a3a47d75dcf, type: 3}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: PlayerShooting
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1154392435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1242780902
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1809,6 +1808,7 @@ GameObject:
   - component: {fileID: 1697115675}
   - component: {fileID: 1697115679}
   - component: {fileID: 1697115680}
+  - component: {fileID: 1697115681}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1926,6 +1926,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e53d5e8bcff9c46a3f25a4c95129bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1697115681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697115674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2006a8df318cc4a86a909a431ca2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 349240758}
+  fireButton: {fileID: 1154392434}
 --- !u!1 &2054859201
 GameObject:
   m_ObjectHideFlags: 0

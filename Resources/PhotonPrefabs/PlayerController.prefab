@@ -736,6 +736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809fb367c70520b42b2dfb645b612fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  torch: {fileID: 4160392813836252159}
+  _photonView: {fileID: 0}
   _playerSpeed: 5
   _joystick: {fileID: 0}
   _bulletPrefab: {fileID: 3038981837189675547, guid: 6602e291ede6fc442828a402a4105e74, type: 3}
@@ -1876,7 +1878,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6636757285310029491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49, y: 1.33, z: 0}
+  m_LocalPosition: {x: 0.49, y: 2.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

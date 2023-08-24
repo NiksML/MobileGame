@@ -6,13 +6,15 @@ using Photon.Pun;
 using System.IO;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using System.Security.Cryptography;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     public static PlayerController instance;
 
     private Rigidbody2D _rb;
-    private PhotonView _photonView;
+    public Transform torch;
+    public PhotonView _photonView;
     [SerializeField] private float _playerSpeed;
     public Joystick _joystick;
     //private Transform _shootPoint;
@@ -39,7 +41,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         _rb = GetComponent<Rigidbody2D>();
         _photonView = GetComponent<PhotonView>();
         _rb.gravityScale = 0;
-        _joystick = (Joystick)GameObject.FindObjectOfType(typeof(Joystick));
+        //_joystick = (Joystick)GameObject.FindObjectOfType(typeof(Joystick));
+        _joystick = InputManager.instance.joystick;
+        InputManager.instance.fireButton.onClick.AddListener(PlayerShooting);
+
         _playerName.text = "Player ID: " + _photonView.ViewID.ToString();
         
     }
@@ -47,14 +52,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void FixedUpdate()
     {
         
-        
-
     }
     
     private void Update()
     { 
         _coinsText.text = "Coins: " + coins.ToString();
         transform.GetChild(1).rotation = Quaternion.identity;
+        
         if (_photonView.IsMine)
         {
             PlayerMove();
@@ -79,6 +83,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             transform.eulerAngles = new Vector3(0f, 0f, -z);
         }
         
+        
     }
 
 
@@ -94,7 +99,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void PlayerShooting()
     {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "fireball"), transform.position, transform.rotation);
+        if (_photonView.IsMine)
+        {
+            GameObject clone = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "fireball"), transform.position, transform.rotation);
+            Bullet _bullet = clone.GetComponent<Bullet>();
+            _bullet.SetPivot(torch);
+            Debug.Log(_photonView.ViewID.ToString() + " shoot");
+        }
+            
         
     }
 

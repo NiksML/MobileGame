@@ -6,13 +6,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float bulletSpeed;
-    [SerializeField] private GameObject _startPos;
+    
+    private Transform pivot;
 
     void Start()
     {
-        _startPos = GameObject.Find("torch1");
-        transform.position = _startPos.transform.position;
-        transform.rotation = _startPos.transform.rotation;
+        
     }
 
 
@@ -23,5 +22,13 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetPivot(Transform pivot)
+    {
+        this.pivot = pivot;
+        
+        transform.position = pivot.position;
+        transform.rotation = pivot.rotation;
     }
 }
