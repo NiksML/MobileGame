@@ -19,6 +19,9 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime);
-        
+        if(transform.position.x < -11 || transform.position.x > 11 || transform.position.y > 5 || transform.position.y < -5)
+        {
+            Destroy(gameObject);
+        }
     }
 }

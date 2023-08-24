@@ -1,18 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Security.Cryptography;
-using System.Threading;
 using UnityEngine;
 using Photon.Pun;
 using System.IO;
 using UnityEngine.UI;
-using System.Diagnostics;
 using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
+    public static PlayerController instance;
+
     private Rigidbody2D _rb;
     private PhotonView _photonView;
     [SerializeField] private float _playerSpeed;
@@ -23,20 +21,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private Text _playerName;
     //public bool isShooting;
     private int curHp;
-    private static int maxHp = 5;
-    [SerializeField] private GameObject[] hpMass; 
+    private static int maxHp = 25;
+    [SerializeField] private Image _hpMass;
+    public static bool gameEnd;
+    public static int loserId = 9999;
+    public int coins;
+    [SerializeField] private Text _coinsText;
     //private Transform nameRotZ;
 
 
     void Start()
     {
-        
-        curHp = maxHp;
-        //isShooting = false;
+        coins = 0;
+        instance = this;
+        gameEnd = false;
+        curHp = maxHp;;
         _rb = GetComponent<Rigidbody2D>();
         _photonView = GetComponent<PhotonView>();
         _rb.gravityScale = 0;
-        
         _joystick = (Joystick)GameObject.FindObjectOfType(typeof(Joystick));
         _playerName.text = "Player ID: " + _photonView.ViewID.ToString();
         
@@ -50,7 +52,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     
     private void Update()
-    {
+    { 
+        _coinsText.text = "Coins: " + coins.ToString();
+        transform.GetChild(1).rotation = Quaternion.identity;
         if (_photonView.IsMine)
         {
             PlayerMove();
@@ -74,6 +78,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             transform.eulerAngles = new Vector3(0f, 0f, -z);
         }
+        
     }
 
 
@@ -90,6 +95,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void PlayerShooting()
     {
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "fireball"), transform.position, transform.rotation);
+        
     }
 
 
@@ -99,8 +105,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             curHp--;
             Destroy(col.gameObject);
-            Destroy(hpMass[curHp]);
+            Destroy(_hpMass.transform.GetChild(curHp).gameObject);
             print("Hp of player with ID:" + _photonView.ViewID.ToString() + " is " + curHp);
+            if (curHp <= 0) 
+            {
+                loserId = _photonView.ViewID;
+                gameEnd = true;
+                
+            }
+        }
+        if (col.gameObject.tag == "Coin")
+        {
+            coins++;
+            Destroy(col.gameObject);
         }
     }
 }
